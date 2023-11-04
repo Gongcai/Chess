@@ -7,14 +7,14 @@ struct coord
 	int y;
 };
 
-void Updboard(char chess[][16]);
-void Updchess(coord step, char chess[][16], int n);
-int ChessCheck(char board[][16], coord step, char sign);
+void Updboard(char chess[][16]);  //Function to print Chessboard
+void Updchess(coord step, char chess[][16], int n);				//Functions to updata board
+int ChessCheck(char board[][16], coord step, char sign);		//Functions to check whether win or not
 
 int main()
 {
 	coord step;
-	char board[16][16];
+	char board[16][16];			//Create board
 	for (int i = 0; i < 16; i++)
 	{
 		for (int nn = 0; nn < 16; nn++)
@@ -23,7 +23,7 @@ int main()
 		}
 	}
 
-	int count(1);
+	int count(1);   //To save whose turn,odd and even 
 	Updboard(board);
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BACKGROUND_BLUE | FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 	count % 2 == 1 ? cout << "O's Turn"  : cout << "X's Turn" ;
@@ -31,18 +31,19 @@ int main()
 	cout << endl;
 	while (true)
 	{
-		cin >> step.x >> step.y;
-		if (board[step.x - 1][step.y - 1] != '*')
+		cin >> step.x >> step.y;	//Get step
+		if (board[step.x - 1][step.y - 1] != '*')	//Check the position whether has been set or not
 		{
-			cout << "This position has been set" << endl;
+			cout << "This position has been set" << endl;		
 			continue;
 		}
-		Updchess(step, board, count);
-		system("cls");
-		Updboard(board);
+		Updchess(step, board, count);	//Updata Chess
+		system("cls");		//Clean the Screen
+		Updboard(board);	// Reprint chessboard
 		
 		cout << endl;
-		if (count % 2 == 1 && ChessCheck(board, step, 'O'))
+		if (count % 2 == 1 && ChessCheck(board, step, 'O'))			/* Judge who'sturn
+																						now			*/
 		{
 			cout << "THe O wiN";
 			break;
@@ -52,11 +53,17 @@ int main()
 			cout << "THe X wiN";
 			break;
 		}
+		count++;
+		if (count==257)  // when nobody wins
+		{
+			cout << "Nobody wins or loses";
+			break;
+		}
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BACKGROUND_BLUE | FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-		count % 2 == 1 ? cout << "X's Turn" : cout << "O's Turn";
+		count % 2 == 1 ? cout << "O's Turn" : cout << "X's Turn";
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_RED | FOREGROUND_GREEN);
 		cout << endl;
-		count++;
+		
 	}
 
 
