@@ -137,69 +137,155 @@ void Updchess(coord step, char chess[][16], int n)
 
 int ChessCheck(char board[][16], coord step, char sign)
 {
-	int xcount(0), ycount(0), xycount(0), count1(1);
-	for (int i = 16; i >= -16; i--)
+	int xcount(1), ycount(1), xycount(1), count1(1);
+	//for (int i = 16; i >= -16; i--)
+	//{
+	//	if (step.x + i >= 0 && step.x + i <= 15)
+	//	{
+	//		if (board[step.x + i][step.y - 1] == sign)
+	//		{
+	//			if (board[step.x + i][step.y - 1] == '*')
+	//			{
+	//				continue;
+	//			}
+	//			ycount++;
+	//		}
+	//	}		
+	//}
+	for (int i = 1; i < 5; i++)
 	{
-		if (step.x + i >= 0 && step.x + i <= 15)
+		if (step.x + i-1 >= 0 && step.x + i -1<= 15)
 		{
-			if (board[step.x + i][step.y - 1] == sign)
+			if (board[step.x + i - 1][step.y - 1] == '*')
 			{
-				if (board[step.x + i][step.y - 1] == '*')
-				{
-					continue;
-				}
+				break;
+			}
+			if (board[step.x -1+ i][step.y - 1] == sign)
+			{
+				
 				ycount++;
 			}
-		}		
+		}
 	}
-	for (int i = 16; i >= -16; i--)
+	for (int i = 1; i < 5; i++)
 	{
-		if (step.y + i >= 0 && step.y + i <= 15)
+		if (step.x - i - 1 >= 0 && step.x - i - 1 <= 15)
 		{
-			if (board[step.x - 1][step.y + i] == sign)
+			if (board[step.x - i - 1][step.y - 1] == '*')
 			{
-				if (board[step.x -1][step.y +i] == '*')
-				{
-					continue;
-				}
+				break;
+			}
+			if (board[step.x - 1 - i][step.y - 1] == sign)
+			{
+				
+				ycount++;
+			}
+		}
+	}
+	for (int i = 1; i < 5; i++)
+	{
+		if (step.y - i - 1 >= 0 && step.y - i - 1 <= 15)
+		{
+			if (board[step.x - 1][step.y - 1 - i] == '*')
+			{
+				break;
+			}
+			if (board[step.x - 1 ][step.y - 1-i] == sign)
+			{
+				
 				xcount++;
 			}
 		}
-
 	}
-	for (int i = 16; i >= -16; i--)
+	for (int i = 1; i < 5; i++)
 	{
-		
-		
+		if (step.y - i - 1 >= 0 && step.y + i - 1 <= 15)
+		{
+			if (board[step.x - 1][step.y - 1 + i] == '*')
+			{
+				break;
+			}
+			if (board[step.x - 1][step.y - 1 + i] == sign)
+			{
+				
+				xcount++;
+			}
+		}
+	}
+
+
+
+
+	//for (int i = 16; i >= -16; i--)
+	//{
+	//	if (step.y + i >= 0 && step.y + i <= 15)
+	//	{
+	//		if (board[step.x - 1][step.y + i] == sign)
+	//		{
+	//			if (board[step.x -1][step.y +i] == '*')
+	//			{
+	//				continue;
+	//			}
+	//			xcount++;
+	//		}
+	//	}
+
+	//}
+	for (int i = 0; i < 5; i++)
+	{		
 		if (step.y + i >= 0 && step.y + i <= 15 && step.x + i >= 0 && step.x + i <= 15)
 		{
+			if (board[step.x + i][step.y + i] == '*')
+			{
+				break;
+			}
 			if (board[step.x + i][step.y + i] != '*' && board[step.x + i][step.y + i] == sign)
 			{
 				xycount++;
 			}
 				
-		}
-		
+		}		
 	}
-	for (int i = 16; i >0; i--)
-	{							
-			if (board[step.x + i - 1][step.y - i - 1] == sign)
-			{
-				if (board[step.x + i - 1][step.y - i - 1] == '*')
-				{
-					continue;
-				}
-				count1++;
-			}					
-	}
-	for (int i = 16; i > 0; i--)
+	for (int i = 0; i < 5; i++)
 	{
+		if (step.y - i >= 0 && step.y - i <= 15 && step.x - i >= 0 && step.x - i <= 15)
+		{
+			if (board[step.x - i][step.y - i] == '*')
+			{
+				break;
+			}
+			if (board[step.x - i][step.y - i] != '*' && board[step.x - i][step.y - i] == sign)
+			{
+				xycount++;
+			}
+
+		}
+	}
+
+
+
+
+	for (int i = 5; i >0; i--)
+	{		
+		if (board[step.x + i - 1][step.y - i - 1] == '*')
+		{
+			break;
+		}
+		if (board[step.x + i - 1][step.y - i - 1] == sign)
+		{
+				
+			count1++;
+		}					
+	}
+	for (int i = 5; i > 0; i--)
+	{
+		if (board[step.x - i - 1][step.y + i - 1] == '*')
+		{
+			break;
+		}
 		if (board[step.x - i - 1][step.y + i - 1] == sign)
 		{
-			if (board[step.x - i - 1][step.y + i - 1] =='*')
-			{
-				continue;
-			}
+
 			count1++;
 		}
 	}
